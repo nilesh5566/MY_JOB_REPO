@@ -73,7 +73,7 @@ TalentLaunch solves all of this in one place, for free.
 ## ✨ Complete Feature List
 
 ### 🌍 Global Job Search
-- **20 job sources** aggregated in real time (500+ jobs per fetch)
+- **20 job sources** aggregated in real time (1500+ jobs per fetch)
 - Filter by: skills, job type (full-time/intern/remote), company size, source
 - Smart deduplication removes duplicate listings across sources
 - Save jobs with one click (+10 XP per save)
