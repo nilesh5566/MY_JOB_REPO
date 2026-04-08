@@ -6,6 +6,9 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?logo=mongodb)](https://mongodb.com)
 [![Groq](https://img.shields.io/badge/AI-Groq%20%2B%20Gemini%20%2B%20Cohere-orange)](https://groq.com)
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![AI](https://img.shields.io/badge/AI-Groq%20%7C%20Gemini%20%7C%20GPT-purple?logo=openai)
+![APIs](https://img.shields.io/badge/Job%20APIs-20%20Sources-orange)
 
 ---
 
