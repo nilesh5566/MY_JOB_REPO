@@ -1,0 +1,21 @@
+{
+  "name": "TalentLaunch — CS Career OS",
+  "short_name": "TalentLaunch",
+  "description": "AI-powered career platform for CS freshers",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#05080f",
+  "theme_color": "#00dcff",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "categories": ["productivity", "education", "business"],
+  "shortcuts": [
+    { "name": "Job Search",   "url": "/jobs",    "description": "Find live jobs" },
+    { "name": "AI Suite",     "url": "/ai",      "description": "AI career tools" },
+    { "name": "Tracker",      "url": "/tracker", "description": "Track applications" },
+    { "name": "Fresher Hub",  "url": "/fresher", "description": "Fresher jobs & drives" }
+  ]
+}

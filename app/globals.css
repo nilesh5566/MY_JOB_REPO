@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Professional theme: royal blue + white + slate */
+  --bg: #F8FAFC;
+  --card: #FFFFFF;
+  --el: #F1F5F9;
+  --hov: #E2E8F0;
+  --bdr: #E2E8F0;
+  --bds: #CBD5E1;
+  --cyan: #1D4ED8;
+  --purple: #2563EB;
+  --green: #16A34A;
+  --yellow: #D97706;
+  --t: #0F172A;
+  --t2: #64748B;
+  --t3: #78869C;
+}
+
+/* Sidebar stays dark navy in the professional theme */
+html[data-theme="pro"] .tl-side,
+html:not([data-theme]) .tl-side {
+  --card: #0F172A; --el: #1E293B; --hov: #1E293B;
+  --bdr: #1E293B; --bds: #334155;
+  --t: #F1F5F9; --t2: #94A3B8; --t3: #64748B;
+  background: #0F172A;
+  color: var(--t);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--t);
+  font-family: 'Manrope', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(100,116,139,0.35); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(100,116,139,0.55); }
+
+/* Glow text utility */
+/* brand text: solid blue, no gradient */
+.glow-text { color: var(--cyan); }
+
+/* Glass card */
+.glass {
+  background: color-mix(in srgb, var(--card) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--bdr);
+}
+
+/* Animated gradient border */
+.gradient-border {
+  position: relative;
+  border-radius: 12px;
+  background: var(--card);
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, rgba(100,116,139,0.55), rgba(124,58,237,0.3));
+  z-index: -1;
+}
+
+/* Grid bg */
+.grid-bg {
+  background-image: linear-gradient(rgba(0,220,255,0.02) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,220,255,0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position:  1000px 0; }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-8px); }
+}
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes bar-fill { from { width: 0; } }
+
+.animate-fade-up { animation: fadeUp 0.5s ease forwards; }
+.animate-float   { animation: float 4s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 8s linear infinite; }
+
+/* Stagger delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Bar fill animation */
+.bar-animated { animation: bar-fill 1s ease forwards; }
+
+/* Chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--bdr);
+  background: var(--el);
+  color: var(--t2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.chip.active, .chip:hover {
+  border-color: var(--bds);
+  background: rgba(0,220,255,0.08);
+  color: var(--cyan);
+}
+
+/* Score ring */
+.score-ring { filter: drop-shadow(0 0 8px rgba(0,220,255,0.4)); }
+
+/* Toaster */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--card);
+  border: 1px solid var(--bds);
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t);
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.3s;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.ok   { border-color: rgba(16,185,129,0.4); color: #34d399; }
+.toast.err  { border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+/* ── UX polish ───────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+/* Visible keyboard focus everywhere (accessibility) */
+:focus-visible { outline: 2px solid var(--cyan, #00dcff); outline-offset: 2px; border-radius: 8px; }
+/* Comfortable tap targets on touch screens */
+@media (pointer: coarse) { aside a, aside button, header button { min-height: 44px; } }
+/* Respect "reduce motion" settings */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+/* Stop long words/URLs from breaking layouts on small screens */
+main { overflow-wrap: anywhere; }
+
+/* Professional (light) theme: darker accent text so small numbers stay readable on white */
+html[data-theme="pro"] .text-green-400:not(.tl-side *), html:not([data-theme]) .text-green-400:not(.tl-side *) { color: #15803D; }
+html[data-theme="pro"] .text-yellow-400:not(.tl-side *), html[data-theme="pro"] .text-yellow-300:not(.tl-side *),
+html:not([data-theme]) .text-yellow-400:not(.tl-side *) { color: #B45309; }
+html[data-theme="pro"] .text-red-400:not(.tl-side *), html[data-theme="pro"] .text-red-300:not(.tl-side *),
+html:not([data-theme]) .text-red-400:not(.tl-side *) { color: #DC2626; }
+html[data-theme="pro"] .text-orange-400:not(.tl-side *), html:not([data-theme]) .text-orange-400:not(.tl-side *) { color: #C2410C; }
+html[data-theme="pro"] .text-blue-400:not(.tl-side *), html[data-theme="pro"] .text-indigo-400:not(.tl-side *),
+html[data-theme="pro"] .text-violet-400:not(.tl-side *), html:not([data-theme]) .text-blue-400:not(.tl-side *) { color: #1D4ED8; }
+html[data-theme="pro"] .text-pink-400:not(.tl-side *), html[data-theme="pro"] .text-rose-400:not(.tl-side *) { color: #BE185D; }
+html[data-theme="pro"] .text-teal-400:not(.tl-side *), html[data-theme="pro"] .text-emerald-400:not(.tl-side *) { color: #0F766E; }
+html[data-theme="pro"] .text-gray-400:not(.tl-side *), html[data-theme="pro"] .text-gray-300:not(.tl-side *) { color: #64748B; }
+/* Buttons with a solid blue background keep white text even if they carry an accent text class */
+html[data-theme="pro"] .bg-gradient-to-r.text-white, html[data-theme="pro"] .bg-gradient-to-br.text-white { color: #fff; }
