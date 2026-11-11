@@ -1,7 +1,11 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
+import { randomUUID } from 'node:crypto'
 
 const UserSchema = new mongoose.Schema({
+  // Older databases retain a unique username index. Every new account needs
+  // a value, including accounts created through Clerk, to avoid null collisions.
+  username:  { type: String, default: () => randomUUID(), immutable: true },
   name:      { type: String, required: true },
   email:     { type: String, required: true, unique: true, lowercase: true },
   password:  { type: String, required: true },

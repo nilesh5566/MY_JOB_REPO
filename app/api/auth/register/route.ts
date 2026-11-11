@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { setSession, signToken, rateLimit, clientIp } from '@/lib/auth'
+import { getSecret, setSession, signToken, rateLimit, clientIp } from '@/lib/auth'
 import { connectDB } from '@/lib/db'
 import { User } from '@/lib/models/User'
 
@@ -22,6 +22,8 @@ export async function POST(req: NextRequest) {
     // bcrypt only uses the first 72 bytes, so longer passwords are refused instead of silently cut
     if (password.length < 8 || Buffer.byteLength(password) > 72) return NextResponse.json({ error: 'Password must be 8 to 72 characters' }, { status: 400 })
 
+    // Check session configuration before persisting an account we cannot sign in.
+    getSecret()
     await connectDB()
     if (await User.findOne({ email })) return NextResponse.json({ error: 'Email already registered' }, { status: 409 })
 
@@ -31,7 +33,11 @@ export async function POST(req: NextRequest) {
       user: { id: user._id, name: user.name, email: user.email, role: user.role, college: user.college, skills: user.skills, targetRole: user.targetRole, xp: 0 }
     }), token)
   } catch (e: any) {
-    console.error('register error:', e?.message)
+    if (e?.code === 11000 && e?.keyPattern?.email) {
+      return NextResponse.json({ error: 'Email already registered' }, { status: 409 })
+    }
+    // Database messages can contain submitted values; log only the category.
+    console.error('register error:', e?.name || 'UnknownError', e?.code || '')
     return NextResponse.json({ error: e?.message?.includes('not set') ? 'Server is not configured (missing environment variables)' : 'Server error' }, { status: 500 })
   }
 }
