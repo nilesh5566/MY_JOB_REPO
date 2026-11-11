@@ -1,0 +1,3 @@
+[build.environment]
+  # Clerk publishable keys are intentionally included in Next.js browser bundles.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY"
